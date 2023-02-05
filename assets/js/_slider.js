@@ -2,10 +2,9 @@
  * Slider
  * Author: Taigo Ito (https://qwel.design/)
  * Location: Fukui, Japan
- * @package Qwel
  */
 
-class Slider {
+export default class Slider {
 
   constructor(elem) {
     // Sliderの各要素

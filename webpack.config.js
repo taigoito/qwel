@@ -1,8 +1,8 @@
 module.exports = {
   mode: 'production',
-  entry: './js/init.js',
+  entry: './assets/js/init.js',
   output: {
-   path: `${__dirname}/`,
+   path: `${__dirname}/assets/`,
    filename: 'init.js'
   },
   module: {

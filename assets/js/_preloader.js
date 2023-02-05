@@ -4,7 +4,7 @@
  * Location: Fukui, Japan
  */
 
-class Preloader {
+export default class Preloader {
 
   constructor(elem) {
     // 要素を取得

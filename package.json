@@ -2,9 +2,13 @@
   "name": "qwel",
   "version": "3.0.0",
   "description": "",
-  "main": "init.js",
+  "private": true,
   "scripts": {
-    "webpack": "webpack"
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
   },
   "repository": {
     "type": "git",
@@ -15,5 +19,11 @@
   "bugs": {
     "url": "https://github.com/taigoito/qwel/issues"
   },
-  "homepage": "https://github.com/taigoito/qwel#readme"
+  "homepage": "https://github.com/taigoito/qwel#readme",
+  "devDependencies": {
+    "nuxt": "^3.0.0"
+  },
+  "dependencies": {
+    "@nuxt/content": "^2.3.0"
+  }
 }
