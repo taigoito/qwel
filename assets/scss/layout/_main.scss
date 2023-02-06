@@ -3,5 +3,19 @@
  */
 
 .main {
+  min-height: 62.5vh;
   
+  &__container {
+    @include container();
+    @include row(space-between, stretch);
+  }
+
+  &__content {
+    @include col(6, true);
+  }
+
+  &__aside {
+    @include col(3, false, "md");
+
+  }
 }

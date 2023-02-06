@@ -1,0 +1,13 @@
+/**
+ * Layout - Sidebar
+ */
+
+.sidebar {
+  h2 {
+    padding: space(1) 0;
+  }
+
+  &__list {
+    @include listUnstyled();
+  }
+}

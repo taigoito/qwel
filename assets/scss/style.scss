@@ -21,6 +21,7 @@
 @import "layout/header";
 @import "layout/gNav";
 @import "layout/main";
+@import "layout/sidebar";
 @import "layout/footer";
 
 // Components
@@ -36,8 +37,7 @@
 @import "objects/components/table";
 
 // Projects
-@import "objects/projects/hero";
-@import "objects/projects/section";
+@import "objects/projects/article";
 @import "objects/projects/postItem";
 @import "objects/projects/postList";
 
