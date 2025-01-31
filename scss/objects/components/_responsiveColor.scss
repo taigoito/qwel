@@ -2,16 +2,19 @@
  * Component - Responsive Color
  */
 
+$responsiveColor:        $bodyBg !default;
+$responsiveImageFilter:  invert(1) grayscale(1) brightness(4) !default;
+
 .responsiveColor {
-  &.--change {
-    color: $white;
+  &--change {
+    color: $responsiveColor !important;
 
     span, a {
-      color: $white;
+      color: $responsiveColor !important;
     }
 
     img {
-      filter: $whiten;
+      filter: $responsiveImageFilter;
     }
   }
 }

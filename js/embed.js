@@ -11,11 +11,12 @@ class Embed {
     const embed = document.querySelector('.embed__cover');
     if (!embed) return;
 
-    embed.classList.add('active');
+    embed.classList.add('embed__cover--active');
     // 監視
-    embed.addEventListener('click', () => {
+    const myTouch = 'ontouchend' in document && window.innerWidth < 1024 ? 'touchend' : 'click';
+    embed.addEventListener(myTouch, () => {
       const promise = this.transitionEnd(embed, () => {
-        embed.classList.remove('active');
+        embed.classList.remove('embed__cover--active');
       }).then(() => {
         embed.remove();
       });

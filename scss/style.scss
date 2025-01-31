@@ -1,10 +1,12 @@
 @charset "utf-8";
 
+// Customize
+@import "foundation/variables";
+
 // Settings
 @import "foundation/settings/colorSystem";
 @import "foundation/settings/gridSystem";
 @import "foundation/settings/typography";
-@import "foundation/settings/components";
 
 // Mixins
 @import "foundation/mixins/background";
@@ -17,15 +19,12 @@
 @import "foundation/normalize";
 
 // Layout
-@import "layout/container";
 @import "layout/header";
 @import "layout/gNav";
-@import "layout/main";
 @import "layout/footer";
 
 // Components
 @import "objects/components/backToTop";
-@import "objects/components/button";
 @import "objects/components/cover";
 @import "objects/components/drawerMenu";
 @import "objects/components/embed";
@@ -34,7 +33,6 @@
 @import "objects/components/preloader";
 @import "objects/components/responsiveColor";
 @import "objects/components/slider";
-@import "objects/components/table";
 
 // Projects
 @import "objects/projects/hero";

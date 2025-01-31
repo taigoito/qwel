@@ -21,7 +21,7 @@ class Preloader {
 
     // 背景を覆う
     this._preloader = document.createElement('div');
-    this._preloader.classList.add('preloader__overlay', '--show');
+    this._preloader.classList.add('preloader__overlay', 'preloader__overlay--show');
     this._preloader.style.backgroundColor = backgroundColor;
     this._elem.appendChild(this._preloader);
 
@@ -61,7 +61,7 @@ class Preloader {
       this._preloader.addEventListener('transitionend', callback);
     });
 
-    this._preloader.classList.remove('--show');
+    this._preloader.classList.remove('preloader__overlay--show');
     promise.then(() => {
       this._preloader.removeEventListener('transitionend', callback);
       this._terminate();
@@ -88,14 +88,14 @@ class Preloader {
 class Spinner {
 
   constructor(options = {}) {
-    this._spinner = document.createElement('div');
-    this._spinner.classList.add('preloader__spinner');
+    this.spinner = document.createElement('div');
+    this.spinner.classList.add('preloader__spinner');
     this.barsCount = options.barsCount || 12;
     const bars = [];
 
     for (let i = 0; i < this.barsCount; i++) {
       bars[i] = document.createElement('span');
-      this._spinner.appendChild(bars[i]);
+      this.spinner.appendChild(bars[i]);
     }
 
     this.interval = options.interval || 1000;
@@ -130,7 +130,7 @@ class Spinner {
     }
 
     const deg = rotateCount * 360 / this.barsCount;
-    this._spinner.style.transform = `rotate(${deg}deg)`;
+    this.spinner.style.transform = `rotate(${deg}deg)`;
 
     setTimeout(() => {
       this._loop(rotateCount);

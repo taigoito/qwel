@@ -8,7 +8,7 @@
   .postItem {
     &__image {
       img {
-        aspect-ratio: 1 / $imgAspectRatio;
+        aspect-ratio: $imgAspectRatio;
         object-fit: cover;
       }
     }
@@ -33,7 +33,7 @@
     }
   }
 
-  &.--grid {
+  &--grid {
     @include row();
 
     .postList__item {
@@ -48,7 +48,7 @@
     }
   }
 
-  &.--list {
+  &--list {
     .postList__item {
       margin-bottom: space(3);
       padding-bottom: space(3);

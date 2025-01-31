@@ -9,6 +9,14 @@
     }
   }
 
+  @each $key, $breakpoint in $breakpoints {
+    @for $i from 2 through 12 {
+      &_#{$key}-#{$i} {
+        @include col($i, true, $key);
+      }
+    }
+  }
+
   @for $i from 0 through 3 {
     &_order-#{$i} {
       order: $i;

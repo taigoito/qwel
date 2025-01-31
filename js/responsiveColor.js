@@ -38,9 +38,9 @@ class ResponsiveColor {
 
     this._elems.forEach((elem) => {
       if (colorYiq) {
-        elem.classList.add('--change');
+        elem.classList.add('responsiveColor--change');
       } else {
-        elem.classList.remove('--change');
+        elem.classList.remove('responsiveColor--change');
       }
 
     });

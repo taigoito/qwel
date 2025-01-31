@@ -17,7 +17,7 @@ class Slider {
 
     // 各オプション (data属性から取得)
     this.isHeader = this._elem.dataset.isHeader || false; // headerに設置する場合はドラグ、ホイール操作に対応しない
-    this.aspectRatio = this._elem.dataset.aspectRatio || 5 / 8;
+    this.aspectRatio = this._elem.dataset.aspectRatio || 8 / 5;
     this.gap = this._elem.dataset.gap - 0 || 0; // アイテム間隔(px)
     this.interval = this._elem.dataset.interval || 3000; // 1000未満を指定すると自動再生しない
     this.duration = this._elem.dataset.duration || 500;
@@ -199,16 +199,16 @@ class Slider {
   // アイテムのアクティブ状態を管理
   _setActiveTarget() {
     // スライダー内アイテム
-    if (this._inner.querySelector('.--current')) {
-      this._inner.querySelector('.--current').classList.remove('--current');
+    if (this._inner.querySelector('.slider__item--current')) {
+      this._inner.querySelector('.slider__item--current').classList.remove('slider__item--current');
     }
-    this._items[this.currentIndex].classList.add('--current');
+    this._items[this.currentIndex].classList.add('slider__item--current');
     // ナビゲーション
-    if (this._nav.querySelector('.--current')) {
-      this._nav.querySelector('.--current').classList.remove('--current');
+    if (this._nav.querySelector('.slider__navItem--current')) {
+      this._nav.querySelector('.slider__navItem--current').classList.remove('slider__navItem--current');
     }
     this._navItems = this._nav.children;
-    this._navItems[this.currentIndex % this.itemsCount].classList.add('--current');
+    this._navItems[this.currentIndex % this.itemsCount].classList.add('slider__navItem--current');
 
   }
 
@@ -216,6 +216,7 @@ class Slider {
   _handleEvents() {
     // タッチデバイスの判定
     const touchSupported = 'ontouchstart' in document.documentElement || navigator.maxTouchPoints > 0;
+    const myTouch = touchSupported ? 'touchend' : 'click';
 
     // 状態
     this._x = 0;
@@ -287,13 +288,13 @@ class Slider {
 
     // img > a リンク無効化
     this._inner.querySelectorAll('.post__image > a').forEach((elem) => {
-      elem.addEventListener('click', (event) => {
+      elem.addEventListener(myTouch, (event) => {
         event.preventDefault();
       });
     });
 
     // ナビゲーション操作
-    this._nav.addEventListener('click', (event) => {
+    this._nav.addEventListener(myTouch, (event) => {
       const target = event.target;
       if (target.dataset.targetIndex) {
         this.move(target.dataset.targetIndex - this.currentIndex % this.itemsCount);
@@ -302,14 +303,14 @@ class Slider {
     });
 
     // 前ボタン
-    this._prev.addEventListener('click', (event) => {
+    this._prev.addEventListener(myTouch, (event) => {
       if (!this.isAnimated) this.move(-1);
       this.stopInterval();
       event.preventDefault();
     });
 
     // 次ボタン
-    this._next.addEventListener('click', (event) => {
+    this._next.addEventListener(myTouch, (event) => {
       if (!this.isAnimated) this.move(1);
       this.stopInterval();
       event.preventDefault();
@@ -398,7 +399,7 @@ class Slider {
 
   _getInnerWidth() {
     const len = this._items.length;
-    return this._elem.clientHeight / this.aspectRatio * len + this.gap * (len - 1);
+    return this._elem.clientHeight * this.aspectRatio * len + this.gap * (len - 1);
 
   }
 

@@ -2,14 +2,27 @@
  * Component - Drawer Menu
  */
 
+$drawerAlwaysShown:      false !default;
+$drawerBreakpoint:       breakpoint("md") !default;
+$drawerPad:              space() !default;
+$drawerHeight:           3rem !default;
+$drawerBg:               themeColor("lighter") !default;
+$drawerNaviconDarkBg:    transparent !default;
+$drawerNaviconDarkColor: themeColor("primary") !default;
+$drawerCloseDarkBg:      transparent !default;
+$drawerCloseDarkColor:   $bodyBg !default;
+$drawerDarkBg:           themeColor("primary") !default;
+$drawerDarkColor:        $bodyBg !default;
+$drawerImageLighten:     invert(1) grayscale(1) brightness(4) !default;  
+
 .drawer {
   position: fixed;
   top: 0;
   right: 0;
   z-index: 1110;
   display: block;
-  width: calc(#{$drawerPad * 2} + #{$drawerHeight});
-  height: calc(#{$drawerPad * 2} + #{$drawerHeight});
+  width: $drawerPad * 2 + $drawerHeight;
+  height: $drawerPad * 2 + $drawerHeight;
   padding: 0; // Reset
   border: 0;
   background-color: transparent;
@@ -18,7 +31,7 @@
   cursor: pointer;
 
   @if $drawerAlwaysShown == false {
-    @media (min-width: $breakpoint) {
+    @media (min-width: $drawerBreakpoint) {
       display: none;
     }
   }
@@ -29,6 +42,7 @@
     right: $drawerPad;
     width: $drawerHeight;
     height: $drawerHeight;
+    border-radius: 50%;
     transition: .25s all ease-in-out;
   }
 
@@ -36,7 +50,7 @@
     opacity: 0;
     transform: rotate(-45deg);
 
-    @at-root .drawer:not(.--active) .drawer__navicon {
+    @at-root .drawer:not(.drawer--active) .drawer__navicon {
       opacity: 1;
       transform: rotate(0);
     }
@@ -46,19 +60,21 @@
     opacity: 1;
     transform: rotate(0);
 
-    @at-root .drawer:not(.--active) .drawer__close {
+    @at-root .drawer:not(.drawer--active) .drawer__close {
       opacity: 0;
       transform: rotate(45deg);
     }
   }
 
-  &.--dark {
+  &--dark {
     .drawer__navicon {
-      color: $primary;
+      background-color: $drawerNaviconDarkBg;
+      color: $drawerNaviconDarkColor;
     }
     
     .drawer__close {
-      color: $white;
+      background-color: $drawerCloseDarkBg;
+      color: $drawerCloseDarkColor;
     }
   }
 }
@@ -72,11 +88,11 @@
   width: clamp(18rem, 40%, 24rem);
   height: 100%;
   margin: auto;
-  background-color: $light;
+  background-color: $drawerBg;
   text-align: center;
   transition: width ease-in-out .25s;
   
-  &:not(.--show) {
+  &:not(.drawerMenu--show) {
     width: 0;
   }
   
@@ -85,16 +101,16 @@
     flex-wrap: wrap;
     align-content: center;
     height: 100%;
-    margin-bottom: 0;
+    margin: 0;
     padding-left: 20%;
     text-align: left;
     opacity: 1;
     
-    &:not(.--show) {
+    &:not(.drawerMenu__inner--show) {
       opacity: 0;
     }
 
-    &.--collapse {
+    &--collapse {
       display: none;
     }
   }
@@ -114,12 +130,12 @@
 
   &__item {
     width: 100%;
-    margin-bottom: 0;
+    margin: 0;
     padding-top: space(1);
     padding-bottom: space(1);
     text-transform: capitalize;
 
-    &.--siteBrand {
+    &--siteBrand {
       padding-top: 1rem;
       padding-bottom: 1rem;
 
@@ -129,7 +145,7 @@
       }
     }
 
-    &.--social {
+    &--social {
       width: 3rem;
       padding-top: 1rem;
       padding-bottom: 1rem;
@@ -146,17 +162,17 @@
     }
   }
 
-  &.--dark {
-    background-color: $drawerMenuDarkBg;
+  &--dark {
+    background-color: $drawerDarkBg;
 
     .drawerMenu__item {
       a {
-        color: $white;
-        fill: $white;
+        color: $drawerDarkColor;
+        fill: $drawerDarkColor;
+      }
 
-        img {
-          filter: $whiten;
-        }
+      img {
+        filter: $drawerImageLighten;
       }
     }
   }
@@ -173,7 +189,7 @@
   height: 100%;
   background-color: transparent;
 
-  &.--collapse {
+  &--collapse {
     display: none;
   }
 }

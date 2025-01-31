@@ -24,7 +24,11 @@
     font-size: $h3FontSize;
   }
 
-  &.--single {
+  &__button {
+    @include button();
+  }
+
+  &--single {
     @include row();
 
     .postItem {

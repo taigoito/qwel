@@ -2,8 +2,18 @@
 
 @mixin table() {
   width: 100%;
-  margin-top: $sectionMarginTop;
-  margin-bottom: $sectionMarginBottom;
+
+  @media (max-width: breakpoint("sm") - 0.1px) {
+    display: block;
+  }
+
+  thead, tbody {
+    width: 100%;
+
+    @media (max-width: breakpoint("sm") - 0.1px) {
+      display: block;
+    }
+  }
 
   thead {
     border: 0; // Reset
@@ -15,12 +25,18 @@
     &:first-child {
       border-top: 1px solid themeColor("lighter");
     }
+
+    @media (max-width: breakpoint("sm") - 0.1) {
+      display: block;
+    }
   }
 
   th, td {
-    padding-top: .625rem;
-    padding-bottom: .625rem;
+    padding: space();
     border: 0; // Reset
-    @include smallText();
+
+    @media (max-width: breakpoint("sm") - 0.1) {
+      display: block;
+    }
   }
 }

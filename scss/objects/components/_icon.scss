@@ -2,11 +2,15 @@
  * Component - Icon
  */
 
+$iconSizeSm: 1.5rem;
+$iconSizeMd: 3rem;
+$iconSizeLg: 4.5rem;
+
 .icon {
   position: relative;
   display: inline-block;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: $iconSizeSm;
+  height: $iconSizeSm;
   overflow: hidden;
   fill: currentColor;
 }
@@ -22,11 +26,11 @@
 }
 
 .icon--m {
-  width: 3rem;
-  height: 3rem;
+  width: $iconSizeMd;
+  height: $iconSizeMd;
 }
 
 .icon--l {
-  width: 4.5rem;
-  height: 4.5rem;
+  width: $iconSizeLg;
+  height: $iconSizeLg;
 }

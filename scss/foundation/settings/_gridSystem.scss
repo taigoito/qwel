@@ -2,14 +2,14 @@
 
 // ルート要素にて定義
 // これを基準とした1remを、全ての寸法の基本単位とする
-$rootFontSize:   16px;
-$fixedFontSize:  3.84vw; // 4vw以下推奨
+$fontSizeBase:   16px !default;
+$rootFontSize:   min(3.84vw, $fontSizeBase) !default; // 4vw以下推奨
 
 // 基準幅
-$gridBase:       6rem;
+$gridBase:       6rem !default;
 
-// 画像アスペクト比 (高さ/幅)
-$imgAspectRatio: 3 / 4;
+// 画像アスペクト比 (幅/高さ)
+$imgAspectRatio: 8 / 5 !default;
 
 // 各BP別用途
 // xs: 1カラム (4グリッド: 24rem)
@@ -18,33 +18,39 @@ $imgAspectRatio: 3 / 4;
 // sm: 1〜2カラム (6グリッド: 36rem)
 // コンテナ幅を拡げ、文字サイズをpxに切り替え固定
 // このサイズのデバイスは少ないため、ほとんどxsのレイアウトを継承する
-// 用途はせいぜい下層ページで、メディアと文章の使用くらいに留める
 // WordPressブロックエディタの都合上、BPを600pxで設置するのが望ましい
 //
 // md: 1〜3カラム (9グリッド: 54rem)
 // 画像:文章を1:2の割合で表示するリストレイアウトが可能
 //
 // lg: 1～4カラム (12グリッド: 72rem)
-// 幅広ラッパー使用時に4カラムレイアウトが可能
-// "md"からflexItemを伸長させる使い方を推奨
+// 幅広コンテナ使用時に4カラムレイアウトが可能
+// "md"からflexItemを伸長させる使い方でもOK
 
 // ブレイクポイント (BP)
-// padding: clamp(12px, 2%, 24px)を左右に付与し、コンテナが収まる
 $breakpoints:    (
-  sm:              600px, // コンテナ576px WordPressブロックエディタのBP
-  md:              900px, // コンテナ864px theme.json settings.layout.contentSize の値
-  lg:              1200px // コンテナ1152px theme.json settings.layout.wideSize の値
-);
+  sm:              $fontSizeBase * 37.5, // WordPressブロックエディタのBP (600px)
+  md:              $fontSizeBase * 56.25,
+  lg:              $fontSizeBase * 75
+) !default;
+
+// コンテナ幅
+// padding: clamp(12px, 2%, 24px)を左右に付与し、コンテナが収まる
+$containerWidths:(
+  sm:              $gridBase * 6.25,  // 内寸 576px
+  md:              $gridBase * 9.375, // 内寸 864px theme.json settings.layout.contentSize の値
+  lg:              $gridBase * 12.5   // 内寸 1152px theme.json settings.layout.wideSize の値
+) !default;
 
 // 余白定義
 $spacingValues:  (
   0:               0,
-  1:               0.375rem,
-  2:               0.75rem,
-  3:               1.5rem,
-  4:               3rem,
-  5:               6rem
-);
+  1:               $gridBase / 16,
+  2:               $gridBase / 8,
+  3:               $gridBase / 4,
+  4:               $gridBase / 2,
+  5:               $gridBase
+) !default;
 
 // BPの配列の接頭辞から値を返す関数
 @function breakpoint($key: "lg") {
@@ -58,54 +64,59 @@ $spacingValues:  (
 
 // ガター
 // 行を生成することで、コンテナの端とコンテンツ間が、それぞれ1.5rem空く仕様
-$gutter:         space();
+$gutter:         $gridBase / 8 !default;
 $containerPad:   (
   sm:              $gutter,
-  md:              clamp(#{$gutter}, 2%, 18px),
-  lg:              clamp(#{$gutter}, 2%, 24px)
-);
+  md:              clamp(#{$gutter}, 2%, #{$gridBase / 6}),
+  lg:              clamp(#{$gutter}, 2%, #{$gridBase / 4})
+) !default;
 
 // コンテナ生成
-// 最大幅のみ固定の流動コンテナ
-@mixin container($key: "lg") {
-  @if ($key == "lg") {
-    @extend %__containerLg;
-  } @else if ($key == "md") {
-    @extend %__containerMd;
-  } @else {
-    @extend %__containerSm;
-  }
-  max-width: breakpoint($key);
+@mixin makeContainer($key: "lg") {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: map-get($containerPad, $key);
+  padding-right: map-get($containerPad, $key);
+}
+
+@mixin container($key: "lg", $maxWidth: map-get($containerWidths, $key)) {
+  max-width: $maxWidth;
+  @include makeContainer($key);
 }
 
 // 行生成
-@mixin row($horizontalAlign: space-around, $verticalAlign: center) {
+@mixin row($horizontalAlign: space-around, $verticalAlign: center, $gutter: false) {
   display: flex;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
   justify-content: $horizontalAlign;
   align-items: $verticalAlign;
+  // 仕様変更: デフォルトではガター無し
+  @if $gutter == true {
+    margin-left: -$gutter;
+    margin-right: -$gutter;
+  }
 }
 
 // 列生成
 @mixin col($size: 12, $flexGrow: false, $key: "xs") {
-  @extend %__containerSm;
-
   @if ($key == "xs") {
     @if ($flexGrow == false) {
-      flex: 0 1 #{$size * $gridBase};
+      flex-grow: 0;
     } @else {
-      flex: $size 1 #{$size * $gridBase};
+      flex-grow: $size;
     }
+    flex-shrink: $size;
+    flex-basis: $size * $gridBase;
   } @else {
-    // 幅広レイアウト時の定義
-    // "xs"～"sm"は未定義でも自動で1カラム一杯に広がる
-    // "md"で幅を指定し、flex-glowを指定するのを推奨
     @media (min-width: breakpoint($key)) {
       @if ($flexGrow == false) {
-        flex: 0 1 #{$size * $gridBase};
+        flex-grow: 0;
       } @else {
-        flex: $size 1 #{$size * $gridBase};
+        flex-grow: $size;
       }
+      flex-shrink: $size;
+      flex-basis: $size * $gridBase;
     }
   }
+  @include makeContainer("sm");
 }

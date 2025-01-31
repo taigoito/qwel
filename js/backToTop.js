@@ -32,8 +32,7 @@ class BackToTop {
 
 
   _handleEvents() {
-    //const myTouch = 'ontouchend' in document && window.innerWidth < 1024 ? 'touchend' : 'click';
-    const myTouch = 'click';
+    const myTouch = 'ontouchend' in document && window.innerWidth < 1024 ? 'touchend' : 'click';
 
     this._btn.addEventListener(myTouch, (event) => {
       event.preventDefault();

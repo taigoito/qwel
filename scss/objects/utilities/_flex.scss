@@ -2,7 +2,7 @@
  * Utility - Flex
  */
 
-$horizontalAlignValues: (
+$horizontalAlignValues:  (
   center:  center, // 水平垂直共に適用される
   left:    flex-start,
   right:   flex-end,
@@ -10,7 +10,7 @@ $horizontalAlignValues: (
   between: space-between
 );
 
-$verticalAlignValues: (
+$verticalAlignValues:    (
   center:  center, // 水平垂直共に適用される
   top:     flex-start,
   stretch: stretch

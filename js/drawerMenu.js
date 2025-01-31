@@ -22,7 +22,7 @@ class DrawerMenu {
     // .drawer
     this._drawer = document.createElement('button');
     this._drawer.classList.add('drawer');
-    if (this.darkMode) this._drawer.classList.add('--dark');
+    if (this.darkMode) this._drawer.classList.add('drawer--dark');
 
     // .drawer__navicon
     this._navicon = document.createElement('span');
@@ -41,7 +41,7 @@ class DrawerMenu {
     // .drawerMenu
     this._drawerMenu = document.createElement('div');
     this._drawerMenu.classList.add('drawerMenu');
-    if (this.darkMode) this._drawerMenu.classList.add('--dark');
+    if (this.darkMode) this._drawerMenu.classList.add('drawerMenu--dark');
 
     // .drawerMenu__inner
     this._menu = document.createElement('div');
@@ -51,7 +51,7 @@ class DrawerMenu {
 
     // .drawerMenuOverlay
     this._overlay = document.createElement('div');
-    this._overlay.classList.add('drawerMenuOverlay', '--collapse');
+    this._overlay.classList.add('drawerMenuOverlay', 'drawerMenuOverlay--collapse');
 
     // body要素に挿入
     const body = document.body;
@@ -80,12 +80,12 @@ class DrawerMenu {
     // 表示
     if (!this.isShown) {
       this._transitionEnd(this._drawerMenu, () => {
-        this._drawerMenu.classList.add('--show');
-        this._drawer.classList.add('--active');
-        this._menu.classList.remove('--collapse');
-        this._overlay.classList.remove('--collapse');
+        this._drawerMenu.classList.add('drawerMenu--show');
+        this._drawer.classList.add('drawer--active');
+        this._menu.classList.remove('drawerMenu__inner--collapse');
+        this._overlay.classList.remove('drawerMenuOverlay--collapse');
       }).then(() => {
-        this._menu.classList.add('--show');
+        this._menu.classList.add('drawerMenu__inner--show');
       });
     }
     this.isShown = true;
@@ -97,12 +97,12 @@ class DrawerMenu {
     // 非表示
     if (this.isShown) {
       this._transitionEnd(this._drawerMenu, () => {
-        this._drawerMenu.classList.remove('--show');
-        this._drawer.classList.remove('--active');
-        this._menu.classList.remove('--show');
+        this._drawerMenu.classList.remove('drawerMenu--show');
+        this._drawer.classList.remove('drawer--active');
+        this._menu.classList.remove('drawerMenu__inner--show');
       }).then(() => {
-        this._menu.classList.add('--collapse');
-        this._overlay.classList.add('--collapse');
+        this._menu.classList.add('drawerMenu__inner--collapse');
+        this._overlay.classList.add('drawerMenuOverlay--collapse');
       });
     }
     this.isShown = false;
@@ -127,7 +127,7 @@ class DrawerMenu {
   _importSiteBrand() {
     // ブランドロゴ・タイトルをインポート
     const siteBrand = document.createElement('div');
-    siteBrand.classList.add('drawerMenu__item', '--siteBrand');
+    siteBrand.classList.add('drawerMenu__item', 'drawerMenu__item--siteBrand');
     siteBrand.appendChild(this._siteBrand.cloneNode(true));
     this._menu.appendChild(siteBrand);
 
@@ -161,7 +161,7 @@ class DrawerMenu {
     const menuItems = this._socialMenu.querySelectorAll('li');
     menuItems.forEach((menuItem) => {
       const socialMenuItem = document.createElement('li');
-      socialMenuItem.classList.add('drawerMenu__item', '--social');
+      socialMenuItem.classList.add('drawerMenu__item', 'drawerMenu__item--social');
       socialMenuItem.innerHTML = menuItem.innerHTML;
       socialMenu.appendChild(socialMenuItem);
     });

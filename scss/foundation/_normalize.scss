@@ -1,22 +1,18 @@
 /**
- * Foundation
+ * Foundation - Normalize
  */
 
 *,
 *::before,
 *::after {
-   box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html {
   font-size: $rootFontSize;
   scroll-behavior: smooth;
-  
-  @media (max-width: breakpoint("sm") - 0.1) {
-    font-size: $fixedFontSize;
-  }
 }
- 
+
 body {
   margin: 0; // Remove the margin in all browsers
   background-color: $bodyBg;
@@ -33,6 +29,8 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: $headingMarginBottom;
   font-family: $headingFontFamily;
   font-weight: $headingFontWeight;
+  line-height: $headingLineHeight;
+  letter-spacing: $headingLetterSpacing;
 }
 
 h1 {
@@ -61,23 +59,11 @@ h6 {
   font-size: $h6FontSize;
 }
 
-p {
-  margin-top: $textMarginTop;
-  margin-bottom: $textMarginBottom;
-}
-
-ol, ul {
-  margin-top: $textMarginTop;
-  margin-bottom: $textMarginBottom;
-}
-
+p,
+ol, ul,
 li {
-  margin-top: $textMarginTop;
-  margin-bottom: $textMarginBottom;
-}
-
-strong {
-  font-weight: bold;
+  margin-top: $defaultMargin;
+  margin-bottom: $defaultMargin;
 }
 
 small {
@@ -89,18 +75,18 @@ blockquote {
 }
 
 a {
-  @include link();
+  @include linkText();
 }
 
 img {
-  max-width: 100%;
+  width: 100%;
   height: auto;
   vertical-align: middle;
 }
 
 figure {
   display: block;
-  margin: $textMarginTop auto $textMarginBottom;
+  margin: $defaultMargin auto;
 }
 
 figcaption {

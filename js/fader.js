@@ -9,8 +9,9 @@ class Fader {
   constructor(elem) {
     // Faderの各要素
     this._elem = elem || document.querySelector('.fader');
-    if (!this._elem) return;
-    this._items = this._elem.children;
+    this._inner = this._elem.querySelector('.cover__inner');
+    if (!this._inner) return;
+    this._items = this._inner.children;
     if (!this._items.length || this._items.length <= 1) return;
 
     // 表示間隔
@@ -20,13 +21,14 @@ class Fader {
     this.currentIndex = 0; // 2枚目から操作
     this.itemsCount = this._items.length;
 
-    // セットアップ
+    // ナビゲーションのセットアップ (暫定機能)
+    this.hasNav = false;
     //this._setupNavs();
 
     // 2番目以降の要素を背面に移動し、フェードさせておく
     for (let i = 1; i < this.itemsCount; i++) {
       this._items[i].style.zIndex--;
-      this._items[i].classList.add('--fade');
+      this._items[i].classList.add('cover__image--fade');
     }
 
     // 開始
@@ -52,14 +54,16 @@ class Fader {
 
 
   _setupNavs() {
-    // .fader__nav
-    this._nav = document.createElement('ul');
-    this._nav.classList.add('fader__nav');
+    this.hasNav = true;
 
-    // .fader__navItem
+    // .cover__nav
+    this._nav = document.createElement('ul');
+    this._nav.classList.add('cover__nav');
+
+    // .cover__navItem
     for (let i = 0; i < this.itemsCount; i++) {
       const li = document.createElement('li');
-      li.classList.add('fader__navItem');
+      li.classList.add('cover__navItem');
       li.dataset.targetIndex = i; // data-target-indexを挿入
       this._nav.appendChild(li);
     }
@@ -67,9 +71,9 @@ class Fader {
     // 現アイテムに.--currrentを付与
     this._navItems = this._nav.children;
     this._navItems = this._nav.children;
-    this._navItems[this.currentIndex].classList.add('--current');
+    this._navItems[this.currentIndex].classList.add('cover__navItem--current');
 
-    this._elem.after(this._nav);
+    this._elem.appendChild(this._nav);
 
     this._handleEvents();
 
@@ -78,7 +82,8 @@ class Fader {
 
   _handleEvents() {
     // ナビゲーション操作
-    this._nav.addEventListener('click', (event) => {
+    const myTouch = 'ontouchend' in document && window.innerWidth < 1024 ? 'touchend' : 'click';
+    this._nav.addEventListener(myTouch, (event) => {
       const target = event.target;
       if (target.dataset.targetIndex) {
         this.fade(target.dataset.targetIndex - 0); // 数値型へパース
@@ -128,21 +133,23 @@ class Fader {
     // アニメーション
     this._transitionEnd(current, () => {
       // フェードイン
-      current.classList.remove('--fade');
+      current.classList.remove('cover__image--fade');
     }).then(() => {
       // トランジションが終了したら、前の要素をフェードさせておく
-      prev.classList.add('--fade');
+      prev.classList.add('cover__image--fade');
     });
 
     // インデックスを継承
     this.currentIndex = index;
 
     // ナビゲーション
-    if (this._nav.querySelector('.--current')) {
-      this._nav.querySelector('.--current').classList.remove('--current');
+    if (this.hasNav) {
+      if (this._nav.querySelector('.cover__navItem--current')) {
+        this._nav.querySelector('.cover__navItem--current').classList.remove('cover__navItem--current');
+      }
+      this._navItems = this._nav.children;
+      this._navItems[this.currentIndex].classList.add('cover__navItem--current');
     }
-    this._navItems = this._nav.children;
-    this._navItems[this.currentIndex].classList.add('--current');
 
   }
 

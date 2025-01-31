@@ -8,8 +8,9 @@
     padding-bottom: space(4);
     background-color: $bodyBg;
 
+    // Test Responsive Color
     .section:nth-child(odd) & {
-      background-color: themeColor("lighter");
+      @include background("darker");
     }
   }
 
@@ -19,12 +20,45 @@
   }
 
   &__container {
-    @include container();
     padding-top: space(2) + space(3);
     padding-bottom: space(4);
 
-    &.--sm {
-      @include container("sm");
+    &:not(.section--contact__container) {
+      @include container();
+    }
+  }
+
+  &--feature {
+    &__inner {
+      padding-bottom: space(4);
+    }
+
+    &__heading {
+      margin-bottom: space(4);
+    }
+  }
+
+  &--access {
+    &__inner {
+      padding-bottom: 0;
+    }
+
+    &__heading {
+      margin-bottom: space(4);
+    }
+  }
+
+  &--contact {
+    &__inner {
+      padding-top: space(4);
+    }
+
+    &__heading {
+      margin-bottom: space(4);
+    }
+
+    &__container {
+      @include container("md");
     }
   }
 }
