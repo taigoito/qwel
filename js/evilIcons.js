@@ -6,7 +6,6 @@
  */
 
 class EvilIcons {
-
   constructor() {
     document.addEventListener("DOMContentLoaded", () => {
       this._renderSprite();
@@ -59,5 +58,4 @@ class EvilIcons {
       currentIcon.parentNode.removeChild(currentIcon);
     }
   }
-
 }

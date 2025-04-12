@@ -1,0 +1,34 @@
+/**
+ * Layout - Header
+ */
+
+$headerHeight: 4.5rem;
+
+.header {
+  position: fixed;
+  z-index: 1000;
+  width: 100%;
+  height: $headerHeight;
+  transition: all 0.35s ease;
+
+  a {
+    color: $bodyBg;
+  }
+
+  &:hover, &--active {
+    background-color: $bodyBg;
+
+    a {
+      color: $linkColor;
+
+      &:hover {
+        color: $linkHoverColor;
+      }
+    }
+  }
+
+  &__container {
+    @include container();
+    height: 100%;
+  }
+}
