@@ -5,7 +5,7 @@
  */
 
 // body要素に限らず、任意の要素に定義可能 (Faderで駆動することを想定)
-class Preloader {
+export default class Preloader {
   // 引数:isLoadManually true: 自動読み込みしない false: window.onloadで自動読み込み
   // data属性によるパラメータ管理:
   // data-background-color: preloader背景色

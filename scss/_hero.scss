@@ -15,4 +15,8 @@
     z-index: 1;
     font-size: $h1FontSize;
   }
+
+  &__button {
+    @include button("primary", 15rem);
+  }
 }

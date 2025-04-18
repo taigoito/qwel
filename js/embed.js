@@ -4,7 +4,7 @@
  * Location: Fukui, Japan
  */
 
-class Embed {
+export default class Embed {
   // 引数infoTextは、カバーに表示させる文字列を受け取る
   // 主にGoogleMapの埋め込みに使用する想定
   constructor(infoText) {

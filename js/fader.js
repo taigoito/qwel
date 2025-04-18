@@ -4,7 +4,7 @@
  * Location: Fukui, Japan
  */
 
-class Fader {
+export default class Fader {
   // data属性によるパラメータ管理:
   // data-interval: スライドアニメーション時間間隔
   constructor(elem) {

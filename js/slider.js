@@ -4,7 +4,7 @@
  * Location: Fukui, Japan
  */
 
-class Slider {
+export default class Slider {
   // data属性によるパラメータ管理:
   // data-is-header: headerに設置 = ドラグ、ホイール操作に対応しない
   // data-aspect-ratio: アスペクト比 (SCSSも修正が必要)
@@ -142,19 +142,19 @@ class Slider {
     this._prev = document.createElement('a');
     this._prev.classList.add('slider__prev');
     this._prev.setAttribute('href', '#');
-    const prevIcon = document.createElement('span');
-    prevIcon.dataset.icon = 'ei-chevron-left';
-    prevIcon.dataset.size = 'l';
-    this._prev.appendChild(prevIcon);
+    let icon = document.createElement('div');
+    icon.classList.add('icon', 'icon--chevron-left', 'icon--md');
+    icon.innerHTML = '<span class="icon__span"></span>';
+    this._prev.appendChild(icon);
 
     // .slider__next
     this._next = document.createElement('a');
     this._next.classList.add('slider__next');
     this._next.setAttribute('href', '#');
-    const nextIcon = document.createElement('span');
-    nextIcon.dataset.icon = 'ei-chevron-right';
-    nextIcon.dataset.size = 'l';
-    this._next.appendChild(nextIcon);
+    icon = document.createElement('div');
+    icon.classList.add('icon', 'icon--chevron-right', 'icon--md');
+    icon.innerHTML = '<span class="icon__span"></span>';
+    this._next.appendChild(icon);
 
     // .slider__nav
     this._nav = document.createElement('ul');

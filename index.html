@@ -12,15 +12,23 @@
       <header id="header" class="header">
         <div class="header__container">
           <nav id="gNav" class="gNav">
-            <h1 class="gNav__siteBrand">
+            <h1 class="gNav__siteBrand responsiveColor">
               <a href="/demo/">Sample Demo</a>
             </h1>
             <ul class="gNav__primaryMenu --visible_md">
-              <li class="gNav__menuItem" v-for="section in sections"><a :href="`#${section.id}`">{{ section.name }}</a></li>
+              <li class="gNav__menuItem" v-for="section in sections">
+                <a :href="`#${section.id}`" v-html="section.name"></a>
+              </li>
             </ul>
             <ul class="gNav__socialMenu --visible_md">
               <template v-for="(item, key) in social">
-                <li class="gNav__menuItem gNav__menuItem--social" v-if="item"><a :href="`https://${key}.com/`"><span :data-icon="`ei-sc-${key}`" data-size="m"></span></a></li>
+                <li class="gNav__menuItem gNav__menuItem--social" v-if="item">
+                  <a :href="`https://${key}.com/`">
+                    <svg :class="`icon icon--si icon--${key} icon--md`" width="36" height="36" aria-hidden="true">
+                      <use :href="`./assets/icons.svg#si-${key}`"></use>
+                    </svg>
+                  </a>
+                </li>
               </template>
             </ul>
           </nav>
@@ -32,6 +40,7 @@
             <p>Welcome to our website.
               <br>This page is a Sample Demo, 
               <br>so some links and buttons may not work.</p>
+            <a class="hero__button" href="https://qwel.design/">QWEL.DESIGN</a>
           </div>
         </header>
         <section :id="sections['feature'].id" class="section">
@@ -197,140 +206,9 @@
         </div>
       </div>
       <footer id="footer" class="footer">
-        <small v-html="copyright"></small>
+        <small class="footer__copyright"></small>
       </footer>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.0/vue.global.js"></script>
-    <script>
-      const data = {
-        data() {
-          return {
-            sections: {
-              feature: {
-                id: 'feature',
-                name: 'feature',
-                items: [
-                  {
-                    heading: 'feature-1',
-                    src: './assets/sampleImg00.jpg'
-                  },
-                  {
-                    heading: 'feature-2',
-                    src: './assets/sampleImg01.jpg'
-                  },
-                  {
-                    heading: 'feature-3',
-                    src: './assets/sampleImg02.jpg'
-                  },
-                  {
-                    heading: 'feature-4',
-                    src: './assets/sampleImg03.jpg'
-                  }
-                ]
-              },
-              about: {
-                id: 'about',
-                name: 'about',
-                heading: 'Mission',
-                excerpt: 'Our mission is ...',
-                src: './assets/sampleImg01.jpg',
-                more: 'read more'
-              },
-              service: {
-                id: 'service',
-                name: 'service',
-                more: 'read more',
-                items: [
-                  {
-                    date: '2025-04-01',
-                    heading: 'service-1',
-                    tags: ['news', 'info'],
-                    excerpt: 'Today is ...',
-                    src: './assets/sampleImg02.jpg'
-                  },
-                  {
-                    date: '2025-04-02',
-                    heading: 'service-2',
-                    tags: ['news'],
-                    excerpt: 'Today is ...',
-                    src: './assets/sampleImg03.jpg'
-                  },
-                  {
-                    date: '2025-04-03',
-                    heading: 'service-3',
-                    tags: ['info'],
-                    excerpt: 'Today is ...',
-                    src: './assets/sampleImg04.jpg'
-                  }
-                ]
-              },
-              news: {
-                id: 'news',
-                name: 'news',
-                more: 'read more',
-                items: [
-                {
-                    date: '2025-04-01',
-                    heading: 'news-1',
-                    tags: ['news', 'info'],
-                    excerpt: 'Today is ...',
-                    src: './assets/sampleImg03.jpg'
-                  },
-                  {
-                    date: '2025-04-02',
-                    heading: 'news-2',
-                    tags: ['news'],
-                    excerpt: 'Today is ...',
-                    src: './assets/sampleImg04.jpg'
-                  },
-                  {
-                    date: '2025-04-03',
-                    heading: 'news-3',
-                    tags: ['info'],
-                    excerpt: 'Today is ...',
-                    src: './assets/sampleImg05.jpg'
-                  }
-                ]
-              },
-              team: {
-                id: 'team',
-                name: 'team',
-                heading: 'Mission',
-                excerpt: 'Our mission is ...',
-                src: './assets/sampleImg04.jpg',
-                more: 'read more'
-              },
-              access: {
-                id: 'access',
-                name: 'access',
-                src: 'https://www.google.com/maps/embed'
-              },
-              contact: {
-                id: 'contact',
-                name: 'contact',
-                description: 'サンプルデモページであるため、このお問い合わせは機能しません。'
-              }
-            },
-            social: {
-              twitter: true,
-              facebook: true,
-              instagram: true
-            },
-            copyright: '&copy; 2019 - 2025 QWEL DESIGN'
-          };
-        }
-      }
-
-      Vue.createApp(data).mount('#app');
-    </script>
-    <script src="./js/backToTop.js"></script>
-    <script src="./js/drawerMenu.js"></script>
-    <script src="./js/embed.js"></script>
-    <script src="./js/evilIcons.js"></script>
-    <script src="./js/fader.js"></script>
-    <script src="./js/preloader.js"></script>
-    <script src="./js/responsiveColor.js"></script>
-    <script src="./js/slider.js"></script>
-    <script src="./init.js"></script>
+    <script src="./init.js" type="module"></script>
   </body>
 </html>

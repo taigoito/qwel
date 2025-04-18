@@ -31,7 +31,7 @@
   &, &:active, &:hover, &:focus {
     color: colorYiq(themeColor($color));
   }
-
+  
   @include makeBlock($size);
   @include makeButton($rounded);
 }
